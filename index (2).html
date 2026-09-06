@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sales Data Analysis - SQL Project</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f766e, #2563eb);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #111827;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+            border-left: 5px solid #2563eb;
+            padding-left: 10px;
+        }
+
+        .card h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #0f766e;
+        }
+
+        pre {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f1f5f9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .stat-box h3 {
+            color: #64748b;
+        }
+
+        .stat-box p {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-top: 5px;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+                font-size: 14px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            pre {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sales Data Analysis</h1>
+    <p>SQL Database Project</p>
+</header>
+
+<nav>
+    <a href="#database">Database</a>
+    <a href="#customers">Customers</a>
+    <a href="#products">Products</a>
+    <a href="#orders">Orders</a>
+    <a href="#queries">SQL Queries</a>
+</nav>
+
+<div class="container">
+
+    <!-- Project Summary -->
+    <section class="card" id="database">
+        <h2>Project Overview</h2>
+
+        <p>
+            This project contains customer, product and order information.
+            SQL queries are used to analyze sales, customers, products,
+            regions and monthly performance.
+        </p>
+
+        <br>
+
+        <span class="badge">MySQL</span>
+        <span class="badge">SQL</span>
+        <span class="badge">Data Analysis</span>
+    </section>
+
+
+    <!-- Customers -->
+    <section class="card" id="customers">
+
+        <h2>Customers Table</h2>
+
+        <pre><code>
+CREATE TABLE Customers (
+    CustomerID VARCHAR(10) PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    City VARCHAR(50),
+    Region VARCHAR(50)
+);
+        </code></pre>
+
+        <table>
+            <tr>
+                <th>Customer ID</th>
+                <th>Customer Name</th>
+                <th>City</th>
+                <th>Region</th>
+            </tr>
+
+            <tr>
+                <td>C001</td>
+                <td>Rahul Mehta</td>
+                <td>Pune</td>
+                <td>West</td>
+            </tr>
+
+            <tr>
+                <td>C002</td>
+                <td>Ananya Rao</td>
+                <td>Chennai</td>
+                <td>South</td>
+            </tr>
+
+            <tr>
+                <td>C003</td>
+                <td>Devika Shah</td>
+                <td>Nashik</td>
+                <td>West</td>
+            </tr>
+
+            <tr>
+                <td>C004</td>
+                <td>Amit Patil</td>
+                <td>Mumbai</td>
+                <td>West</td>
+            </tr>
+
+            <tr>
+                <td>C005</td>
+                <td>Sneha Iyer</td>
+                <td>Bangalore</td>
+                <td>South</td>
+            </tr>
+
+            <tr>
+                <td>C006</td>
+                <td>Vikrant Singh</td>
+                <td>Delhi</td>
+                <td>North</td>
+            </tr>
+
+            <tr>
+                <td>C007</td>
+                <td>Priya Deshmukh</td>
+                <td>Pune</td>
+                <td>West</td>
+            </tr>
+
+            <tr>
+                <td>C008</td>
+                <td>Rohan Joshi</td>
+                <td>Hyderabad</td>
+                <td>South</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- Products -->
+    <section class="card" id="products">
+
+        <h2>Products Table</h2>
+
+        <pre><code>
+CREATE TABLE Products (
+    ProductID VARCHAR(10) PRIMARY KEY,
+    ProductName VARCHAR(50),
+    Category VARCHAR(50),
+    UnitPrice DECIMAL(10,2)
+);
+        </code></pre>
+
+        <table>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Unit Price</th>
+            </tr>
+
+            <tr>
+                <td>P001</td>
+                <td>Laptop</td>
+                <td>Electronics</td>
+                <td>60000</td>
+            </tr>
+
+            <tr>
+                <td>P002</td>
+                <td>Mouse</td>
+                <td>Accessories</td>
+                <td>900</td>
+            </tr>
+
+            <tr>
+                <td>P003</td>
+                <td>Keyboard</td>
+                <td>Accessories</td>
+                <td>2000</td>
+            </tr>
+
+            <tr>
+                <td>P004</td>
+                <td>Monitor</td>
+                <td>Electronics</td>
+                <td>15000</td>
+            </tr>
+
+            <tr>
+                <td>P005</td>
+                <td>Headphones</td>
+                <td>Accessories</td>
+                <td>2500</td>
+            </tr>
+
+            <tr>
+                <td>P006</td>
+                <td>USB Cable</td>
+                <td>Accessories</td>
+                <td>300</td>
+            </tr>
+
+            <tr>
+                <td>P007</td>
+                <td>Webcam</td>
+                <td>Electronics</td>
+                <td>4500</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- Orders -->
+    <section class="card" id="orders">
+
+        <h2>Orders Table</h2>
+
+        <pre><code>
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    OrderDate DATE,
+    CustomerID VARCHAR(10),
+    ProductID VARCHAR(10),
+    Quantity INT,
+    Sales DECIMAL(10,2)
+);
+        </code></pre>
+
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Sales</th>
+            </tr>
+
+            <tr>
+                <td>1001</td>
+                <td>2026-08-05</td>
+                <td>C003</td>
+                <td>P001</td>
+                <td>2</td>
+                <td>120000</td>
+            </tr>
+
+            <tr>
+                <td>1002</td>
+                <td>2026-08-06</td>
+                <td>C002</td>
+                <td>P005</td>
+                <td>2</td>
+                <td>4500</td>
+            </tr>
+
+            <tr>
+                <td>1003</td>
+                <td>2026-08-06</td>
+                <td>C003</td>
+                <td>P003</td>
+                <td>3</td>
+                <td>6000</td>
+            </tr>
+
+            <tr>
+                <td>1004</td>
+                <td>2026-08-07</td>
+                <td>C001</td>
+                <td>P004</td>
+                <td>1</td>
+                <td>15000</td>
+            </tr>
+
+            <tr>
+                <td>1005</td>
+                <td>2026-08-08</td>
+                <td>C004</td>
+                <td>P001</td>
+                <td>1</td>
+                <td>60000</td>
+            </tr>
+
+            <tr>
+                <td>1006</td>
+                <td>2026-08-09</td>
+                <td>C005</td>
+                <td>P002</td>
+                <td>2</td>
+                <td>5000</td>
+            </tr>
+
+            <tr>
+                <td>1007</td>
+                <td>2026-08-10</td>
+                <td>C006</td>
+                <td>P006</td>
+                <td>4</td>
+                <td>3600</td>
+            </tr>
+
+            <tr>
+                <td>1008</td>
+                <td>2026-08-11</td>
+                <td>C007</td>
+                <td>P003</td>
+                <td>1</td>
+                <td>4500</td>
+            </tr>
+
+            <tr>
+                <td>1009</td>
+                <td>2026-08-12</td>
+                <td>C008</td>
+                <td>P007</td>
+                <td>10</td>
+                <td>45000</td>
+            </tr>
+
+            <tr>
+                <td>1010</td>
+                <td>2026-08-13</td>
+                <td>C001</td>
+                <td>P006</td>
+                <td>10</td>
+                <td>3000</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- Statistics -->
+    <section class="stats">
+
+        <div class="stat-box">
+            <h3>Total Orders</h3>
+            <p>10</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>Total Customers</h3>
+            <p>8</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>Total Products</h3>
+            <p>7</p>
+        </div>
+
+        <div class="stat-box">
+            <h3>Total Sales</h3>
+            <p>₹2,61,600</p>
+        </div>
+
+    </section>
+
+
+    <!-- SQL Queries -->
+    <section class="card" id="queries">
+
+        <h2>SQL Analysis Queries</h2>
+
+        <h3>1. Order Details with Customer & Product</h3>
+
+        <pre><code>
+SELECT
+    o.OrderID,
+    o.OrderDate,
+    c.CustomerName,
+    c.Region,
+    p.ProductName,
+    p.Category,
+    o.Quantity,
+    o.Sales,
+
+    CASE
+        WHEN o.Sales >= 10000
+        THEN 'High Value'
+        ELSE 'Regular'
+    END AS OrderStatus,
+
+    ROUND(o.Sales / o.Quantity, 2)
+    AS Unit_Selling_Price
+
+FROM Orders o
+
+INNER JOIN Customers c
+    ON o.CustomerID = c.CustomerID
+
+INNER JOIN Products p
+    ON o.ProductID = p.ProductID;
+        </code></pre>
+
+
+        <h3>2. Overall Sales Summary</h3>
+
+        <pre><code>
+SELECT
+    SUM(Sales) AS Total_Sales,
+    COUNT(*) AS Total_Orders,
+    ROUND(AVG(Sales), 2) AS Average_Order_Value,
+    MAX(Sales) AS Highest_Order_Value
+FROM Orders;
+        </code></pre>
+
+
+        <h3>3. Region & Category Wise Sales</h3>
+
+        <pre><code>
+SELECT
+    c.Region,
+    p.Category,
+    SUM(o.Sales) AS Total_Sales
+
+FROM Orders o
+
+JOIN Customers c
+    ON o.CustomerID = c.CustomerID
+
+JOIN Products p
+    ON o.ProductID = p.ProductID
+
+GROUP BY
+    c.Region,
+    p.Category
+
+ORDER BY
+    Total_Sales DESC;
+        </code></pre>
+
+
+        <h3>4. Monthly Sales</h3>
+
+        <pre><code>
+SELECT
+    DATE_FORMAT(OrderDate, '%Y-%m') AS Month,
+    SUM(Sales) AS Monthly_Sales
+
+FROM Orders
+
+GROUP BY
+    DATE_FORMAT(OrderDate, '%Y-%m');
+        </code></pre>
+
+
+        <h3>5. Product Ranking</h3>
+
+        <pre><code>
+SELECT
+    p.ProductName,
+    SUM(o.Sales) AS Total_Sales,
+
+    RANK() OVER (
+        ORDER BY SUM(o.Sales) DESC
+    ) AS Product_Rank
+
+FROM Orders o
+
+JOIN Products p
+    ON o.ProductID = p.ProductID
+
+GROUP BY
+    p.ProductName
+
+ORDER BY
+    Product_Rank;
+        </code></pre>
+
+
+        <h3>6. Top 5 Products</h3>
+
+        <pre><code>
+SELECT
+    p.ProductName,
+    SUM(o.Sales) AS Total_Sales
+
+FROM Orders o
+
+JOIN Products p
+    ON o.ProductID = p.ProductID
+
+GROUP BY
+    p.ProductName
+
+ORDER BY
+    Total_Sales DESC
+
+LIMIT 5;
+        </code></pre>
+
+    </section>
+
+</div>
+
+
+<footer>
+    <p>© 2026 Sales Data Analysis | SQL Project</p>
+</footer>
+
+</body>
+</html>
